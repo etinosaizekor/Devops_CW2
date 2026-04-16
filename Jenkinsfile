@@ -5,7 +5,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         DOCKERHUB_USERNAME = 'etinosaizekor'
         IMAGE_NAME = 'cw2-server'
-        IMAGE_TAG = '1.0'
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
     
     stages {
@@ -18,7 +18,7 @@ pipeline {
         
         stage('Build Image') {
             steps {
-                sh 'docker build -t ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} .'
+                sh "docker build -t ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
         
@@ -37,7 +37,7 @@ pipeline {
         stage('Push to DockerHub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}'
+                sh "docker push ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
         
