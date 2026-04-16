@@ -45,7 +45,7 @@ pipeline {
             steps {
                 sh '''
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.39.166 \
-                    "kubectl set image deployment/cw2-server cw2-server=${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${IMAGE_TAG} && \
+                    "kubectl set image deployment/cw2-server cw2-server=etinosaizekor/cw2-server:${BUILD_NUMBER} && \
                     kubectl rollout status deployment/cw2-server"
                 '''
             }
