@@ -43,11 +43,11 @@ pipeline {
         
         stage('Deploy to Kubernetes') {
             steps {
-                sh '''
+                sh """
                     ssh -o StrictHostKeyChecking=no ubuntu@172.31.39.166 \
                     "kubectl set image deployment/cw2-server cw2-server=etinosaizekor/cw2-server:${BUILD_NUMBER} && \
                     kubectl rollout status deployment/cw2-server"
-                '''
+                """
             }
         }
     }
